@@ -236,6 +236,11 @@
     gap: 20px;
     /* display: none !important; */
 }
+.monthly-plan,
+.yearly-plan {
+  display: flex; /* Set the default display for Monthly */
+}
+
 .monthly-yearly-plan{
     display: flex !important;
 }
@@ -243,7 +248,7 @@
     /* display: flex; */
     justify-content: center;
     gap: 20px;
-    display: none !important;
+    display: none;
 }
 .plan-heading{
     margin-bottom: 25px;
@@ -290,11 +295,16 @@
 .monthly svg{
     margin-bottom: 55px !important;
 }
-.yearly h2{
-    margin-bottom:5px !important;
-}
+/* .yearly h2{
+    margin-bottom:px !important;
+} */
 .yearly h2,h3,p{
     margin-bottom: 5px;
+}
+.yearly p{
+    margin-top: 0px ;
+    margin-bottom: 5px;
+    margin-left: 10px;
 }
 .plan h3{
     color: hsl(229, 24%, 60%);
@@ -535,10 +545,10 @@
     margin-top:78px ;
     /* max-height: 315px; */
     height: 100%;
-    display: none !important;
+    display: none ;
 }
 .finish-active{
-    display: block !important;
+    display: block!important;
 }
 .finish-heading{
     margin-bottom: 30px;

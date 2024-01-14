@@ -1,8 +1,9 @@
 const sideBarStepContainer =document.querySelector('.side-bar-step-container');
 const step1 = document.querySelector('.step-1');
-let step2 = document.querySelector('.step-2');
+let   step2 = document.querySelector('.step-2');
 const step3 = document.querySelector('.step-3');
 const step4 = document.querySelector('.step-4');
+// const step5 = document.querySelector('.step-5');
 const formContainer = document.querySelector('.form-container');
 const planContainer = document.querySelector('.overall-plan-container');
 const addsContainer = document.querySelector('.pick-adds-container');
@@ -48,6 +49,7 @@ const stepTwo = (e) => {
    formContainer.classList.add('form-active');
    finishContainer.classList.remove('finish-active');
    addsContainer.classList.remove('adds-active');
+   thanksContainer.classList.remove('thanks-active');
 };
 
 step2.addEventListener('click', stepTwo);
@@ -57,6 +59,7 @@ const stepThree = (e) => {
     planContainer.classList.remove('plan-active');
     formContainer.classList.add('form-active');
     finishContainer.classList.remove('finish-active');
+    thanksContainer.classList.remove('thanks-active');
 };
 step3.addEventListener('click', stepThree);
 
@@ -65,18 +68,30 @@ const stepFour = (e) => {
     addsContainer.classList.remove('adds-active');
     planContainer.classList.remove('plan-active');
     formContainer.classList.add('form-active');
+    thanksContainer.classList.remove('thanks-active');
+    
 };
 step4.addEventListener('click', stepFour);
-
 
 const stepOne = (e) => {
     finishContainer.classList.remove('finish-active');
     addsContainer.classList.remove('adds-active');
     planContainer.classList.remove('plan-active');
     formContainer.classList.remove('form-active');
+    thanksContainer.classList.remove('thanks-active');
+
 }
 step1.addEventListener('click', stepOne);
 
+// const stepFive = (e) => {
+//     finishContainer.classList.remove('finish-active');
+//     addsContainer.classList.remove('adds-active');
+//     planContainer.classList.remove('plan-active');
+//     formContainer.classList.add('form-active');
+//     thanksContainer.classList.add('thanks-active');
+// };
+
+// step5.addEventListener('click', stepFive);
 
 // form validation
 const textInput = document.querySelector('.text-input');
@@ -184,33 +199,29 @@ const backPlanValidation = (e) => {
 backPlanButton.addEventListener('click', backPlanValidation);
 
 const switchButton  = document.querySelector('.checkbox');
-let switchRight = document.querySelector('.sliders');
-let switchLeft = document.querySelector('.sliders:before'); 
 const monthlyPlan = document.querySelector('.monthly-plan');
 const yearlyPlan = document.querySelector('.yearly-plan');
-console.log(switchRight)
+
 
 const switchValidation = (e) =>{
-   e.target.yearlyPlan.style.display = 'flex';
-    monthlyPlan.style.display = 'none';
-    console.log(e);
+    if (e.target.checked) {
+        // Show yearly plan
+        yearlyPlan.style.display = 'flex';
+        monthlyPlan.style.display = 'none';
+    } else {
+        // Show monthly plan
+        yearlyPlan.style.display = 'none';
+        monthlyPlan.style.display = 'flex';
+    }
 }
 
-switchButton.addEventListener('checked', switchValidation);
-
-
-
-
-
-
-
-
+switchButton.addEventListener('change', switchValidation);
 
 
 const nextPlanValidation = (e) =>{
     e.preventDefault();
     stepThree ();
-    const newStep = currentStep + 2;
+    const newStep = currentStep + 1;
       updateActiveStep(newStep);
 }
 
@@ -218,7 +229,67 @@ const nextPlanValidation = (e) =>{
 nextPlanButton.addEventListener('click', nextPlanValidation);
 
 
-
-
                 // plan container ends
+
+
+                // adds container starts
+const addsBackButton = document.querySelector('.close-btn');
+const addsNextButton = document.querySelector('.next-btn');
+
+const addsBackValidation = (e) => {
+    e.preventDefault();
+    stepTwo ();
+    const newStep = currentStep - 1;
+        updateActiveStep(newStep);
+}
+addsBackButton.addEventListener('click', addsBackValidation);
+
+
+
+const addsNextValidation = (e) =>{
+    e.preventDefault();
+    stepFour ();
+    const newStep = currentStep + 1;
+      updateActiveStep(newStep);
+}
+addsNextButton.addEventListener('click', addsNextValidation);
+
+                // adds container end
+
+
+                // finishing container starts
+const finishBackButton = document.querySelector('.close-finish-btn');
+const finishNextButton = document.querySelector('.next-finish-btn');
+
+const finishBackValidation = (e) => {
+    e.preventDefault();
+    stepThree ();
+    thanksContainer.classList.remove('thanks-active');
+    const newStep = currentStep - 1;
+        updateActiveStep(newStep);
+}
+finishBackButton.addEventListener('click', finishBackValidation);
+
+
+
+const finishNextValidation = (e) =>{
+    e.preventDefault();
+    finishContainer.classList.remove('finish-active');
+    addsContainer.classList.remove('adds-active');
+    planContainer.classList.remove('plan-active');
+    formContainer.classList.add('form-active');
+    thanksContainer.classList.add('thanks-active');
+    // const newStep = currentStep + 1;
+    //     updateActiveStep(newStep);
+}
+
+finishNextButton.addEventListener('click', finishNextValidation);
+
+const change = document.querySelector('.change');
+
+change.addEventListener('click', () => {
+    stepTwo ();
+});
+
+                // finishing container ends
 
