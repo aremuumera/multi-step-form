@@ -274,9 +274,8 @@
 .plan:hover{
     border: 2px solid hsl(213, 96%, 18%);
 }
- .plan:focus,
- .plan:active:hover{
-    background-color: hsl(229, 24%, 80%);
+.active-month,.active-year{
+    background-color: hsl(229, 24%, 80%) !important;
     border: 2px solid hsl(213, 96%, 18%);
 }
 .plan svg{
@@ -366,6 +365,12 @@
     width: 60px;
     height: 34px;
   }
+/* .switch-button .switch-year{
+    color: hsl(229, 24%, 79%);
+  }
+ .switch-button .switch-month{
+    color: hsl(213, 96%, 18%);
+  } */
   .switch input { 
     opacity: 0;
     width: 0;
@@ -448,6 +453,10 @@
 .adds-active{
     display: block !important;
 }
+
+.adds-style-active{
+    background: hsl(217, 100%, 91%);
+}
 .pick input[type="checkbox"] {
     width: 20px;
     height: 20px;
@@ -456,11 +465,14 @@
     border: 7px solid hsl(217, 100%, 91%);
     cursor: pointer;
 }
-.monthly-adds-cont{
-    display: block;
+.monthly-adds-active{
+    display: block !important;
 }
 .yearly-adds-cont{
     display: none;
+}
+.yearly-adds-active{
+    display:none !important;
 }
 .pick{
     display: flex;
@@ -477,6 +489,9 @@
     align-items: center;
     gap: 22px;
 }
+/* .checked{
+    input:checked;
+} */
 .pick input:checked {
     background-color: hsl(243, 100%, 62%);
     color: hsl(217, 100%, 100%);

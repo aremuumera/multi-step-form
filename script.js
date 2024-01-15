@@ -3,7 +3,6 @@ const step1 = document.querySelector('.step-1');
 let   step2 = document.querySelector('.step-2');
 const step3 = document.querySelector('.step-3');
 const step4 = document.querySelector('.step-4');
-// const step5 = document.querySelector('.step-5');
 const formContainer = document.querySelector('.form-container');
 const planContainer = document.querySelector('.overall-plan-container');
 const addsContainer = document.querySelector('.pick-adds-container');
@@ -21,10 +20,12 @@ const updateActiveStep = (newStep) => {
     stepLinks[currentStep].classList.remove('step-active');
     //stepLink = stepLinks[newStep]
     // stepActive = stepLinks[currentStep];
-    currentStep = newStep;
+    currentStep = newStep ;
     // stepActive = stepLink or  stepLinks[currentStep] = stepLinks[newStep]
-    // newstep and currentStep are representing the numbers of click
-
+    // newStep and currentStep are representing the numbers of click
+    if (currentStep === newStep){
+        stepLinks[newStep].classList.add('step-active');
+    }
 };
 
 stepLinks.forEach((stepLink, index) => {
@@ -41,7 +42,7 @@ stepLinks.forEach((stepLink, index) => {
 //     });
 //     });
     
-
+let step = false;
 
 
 const stepTwo = (e) => {
@@ -50,6 +51,7 @@ const stepTwo = (e) => {
    finishContainer.classList.remove('finish-active');
    addsContainer.classList.remove('adds-active');
    thanksContainer.classList.remove('thanks-active');
+    step = true;
 };
 
 step2.addEventListener('click', stepTwo);
@@ -82,16 +84,6 @@ const stepOne = (e) => {
 
 }
 step1.addEventListener('click', stepOne);
-
-// const stepFive = (e) => {
-//     finishContainer.classList.remove('finish-active');
-//     addsContainer.classList.remove('adds-active');
-//     planContainer.classList.remove('plan-active');
-//     formContainer.classList.add('form-active');
-//     thanksContainer.classList.add('thanks-active');
-// };
-
-// step5.addEventListener('click', stepFive);
 
 // form validation
 const textInput = document.querySelector('.text-input');
@@ -187,6 +179,7 @@ submitFormButton.addEventListener('click', formSubmission);
 
 
                 // plan container starts
+// back button
 const backPlanButton = document.querySelector('.close-plan-btn');
 const nextPlanButton = document.querySelector('.next-plan-btn');
 
@@ -197,42 +190,133 @@ const backPlanValidation = (e) => {
       updateActiveStep(newStep);
 }
 backPlanButton.addEventListener('click', backPlanValidation);
-
+// switch button
 const switchButton  = document.querySelector('.checkbox');
 const monthlyPlan = document.querySelector('.monthly-plan');
 const yearlyPlan = document.querySelector('.yearly-plan');
-
-
+const switchMonth = document.querySelector('.switch-month');
+const switchYear = document.querySelector('.switch-year');
 const switchValidation = (e) =>{
-    if (e.target.checked) {
+    if (switchButton.checked) {
         // Show yearly plan
         yearlyPlan.style.display = 'flex';
         monthlyPlan.style.display = 'none';
+        switchYear.style.color == 'hsl(213, 96%, 18%)';
+        switchMonth.style.color = 'hsl(229, 24%, 79%)';
+        
     } else {
         // Show monthly plan
         yearlyPlan.style.display = 'none';
         monthlyPlan.style.display = 'flex';
+        switchYear.style.color == ' hsl(229, 24%, 79%)';
+        switchMonth.style.color = 'hsl(213, 96%, 18%)';
     }
 }
-
 switchButton.addEventListener('change', switchValidation);
-
-
+//next button
 const nextPlanValidation = (e) =>{
     e.preventDefault();
     stepThree ();
     const newStep = currentStep + 1;
       updateActiveStep(newStep);
 }
-
-
 nextPlanButton.addEventListener('click', nextPlanValidation);
 
+const allMonthYear = document.querySelectorAll('.monthly,.yearly');
+let activeMonth = document.querySelector('.active-month');
+let yearly = document.querySelectorAll('.yearly');
+let monthly = document.querySelectorAll('.monthly');
+// const h2Element = monthlyPlan.querySelector('.plan h2');
+// const h3Element = monthlyPlan.querySelector('.plan h3');
+let allMonthPlan = null;
+const monthlyPlanData = [];
+
+allMonthYear.forEach(monthPlan  => {
+
+    const monthlyPlaValidation = () => {
+        monthPlan.classList.add('active-month');
+            activeMonth.classList.remove('active-month');
+                activeMonth = monthPlan;
+            if (activeMonth === monthPlan){
+                monthPlan.classList.add('active-month');
+            }
+                // storing the element to an array to be used in the receipt/summary
+            let h2ElementValue = monthPlan.querySelector('.plan h2').textContent;
+            let h3ElementValue = monthPlan.querySelector('.plan h3').textContent;
+            
+            monthlyPlanData.push({monthPlan: `${h2ElementValue}`, monthPlanValue: `${h3ElementValue}`});
+            let lastOneClicked = monthlyPlanData.slice(-1);
+            // monthlyPlanData.push({monthPlanValue: `${h3ElementValue}`});
+            console.log(lastOneClicked) ;
+
+        monthly.forEach(month => {
+            month.addEventListener('click', (e) => {
+                if(month === activeMonth) {
+                    document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
+                    document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
+                    return true ;
+                }else{
+                    document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
+                    document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
+                    return false;
+                };
+            });
+        });
+
+        yearly.forEach(year => {
+            year.addEventListener('click', (e) => {
+                if(year === activeMonth) {
+                    document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
+                    document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
+                    return true ;
+                }else{
+                    document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
+                    document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
+                    return false;
+                };
+            })
+        
+        });
+    
+    };
+    monthPlan.addEventListener('click', monthlyPlaValidation);
+   
+});
+// if (switchValidation () && monthlyPlaValidation ()){
+//     document.querySelector('.monthly-adds-cont').style.display = 'none';
+//         document.querySelector('.yearly-adds-cont').style.display = 'block';
+// }else{
+//     document.querySelector('.monthly-adds-cont').style.display = 'block';
+//         document.querySelector('.yearly-adds-cont').style.display = 'none';
+// }
+const updateSummary = () => {
+    const summaryContainer = document.querySelector('.summary-container');
+    const summaryText = document.querySelector('.summary-text');
+
+    // Check if the switch button is checked
+    const isYearly = switchButton.checked;
+
+    // Get the selected plan data based on the active class
+    const selectedPlanData = isYearly ? yearlyPlanData : monthlyPlanData;
+
+    // Customize the summary text based on the selected plan
+    const summary = selectedPlanData.length > 0
+        ? `Selected Plan: ${selectedPlanData[selectedPlanData.length - 1].monthPlan} ${selectedPlanData[selectedPlanData.length - 1].monthPlanValue}`
+        : 'No plan selected';
+
+    // Update the summary container with the new text
+    summaryText.textContent = summary;
+    summaryContainer.style.display = 'block';
+};
+
+
+console.log(monthlyPlanData);
 
                 // plan container ends
 
 
                 // adds container starts
+// back button
 const addsBackButton = document.querySelector('.close-btn');
 const addsNextButton = document.querySelector('.next-btn');
 
@@ -243,9 +327,7 @@ const addsBackValidation = (e) => {
         updateActiveStep(newStep);
 }
 addsBackButton.addEventListener('click', addsBackValidation);
-
-
-
+// next button
 const addsNextValidation = (e) =>{
     e.preventDefault();
     stepFour ();
@@ -253,6 +335,43 @@ const addsNextValidation = (e) =>{
       updateActiveStep(newStep);
 }
 addsNextButton.addEventListener('click', addsNextValidation);
+
+// pick adds
+
+const pickAdds = document.querySelectorAll('.pick');
+const pickAddsData = []; 
+pickAdds.forEach(pickAdd => {
+    let input =  pickAdd.querySelector('.pick input[type="checkbox"]');
+    const pickAddsValidation = () => {
+        let h2AddsElementValue = pickAdd.querySelector('.pick-cont h2').textContent;
+        let pAddsElementValue = pickAdd.querySelector('.pick p:last-child').textContent;
+
+        if (!pickAdd.classList.contains('adds-style-active') && !input.classList.contains('pick input:checked')){
+            pickAdd.classList.add('adds-style-active');
+            pickAdd.style.borderColor = 'hsl(213, 96%, 18%)';
+            input.checked = true;
+            pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`})
+            
+        }else{
+            pickAdd.classList.remove('adds-style-active');
+            pickAdd.style.borderColor = 'hsl(217, 100%, 91%)';
+            input.checked = false;
+            // Create a function to check if an item matches the condition
+                let removeAddsDataFromArray  = pickAddsData.findIndex(item => item.h2AddsElement === `${h2AddsElementValue}` && item.pAddsElement === `${pAddsElementValue}`);
+            // Remove one element from that index
+            if (removeAddsDataFromArray  !== -1) {
+                pickAddsData.splice(removeAddsDataFromArray);
+            }
+            
+        }
+        // pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`});
+        // let singleAddValue = pickAddsData.slice()
+    };
+    console.log(pickAddsData);
+    pickAdd.addEventListener('click', pickAddsValidation);
+});
+
+console.log(pickAddsData);
 
                 // adds container end
 
@@ -270,8 +389,6 @@ const finishBackValidation = (e) => {
 }
 finishBackButton.addEventListener('click', finishBackValidation);
 
-
-
 const finishNextValidation = (e) =>{
     e.preventDefault();
     finishContainer.classList.remove('finish-active');
@@ -284,12 +401,14 @@ const finishNextValidation = (e) =>{
 }
 
 finishNextButton.addEventListener('click', finishNextValidation);
-
 const change = document.querySelector('.change');
-
 change.addEventListener('click', () => {
     stepTwo ();
 });
+
+
+
+
 
                 // finishing container ends
 
