@@ -687,6 +687,7 @@
              /* Finishing up end */
 
                /* thank you start */
+
 .thanks-container{
 background-color: transparent !important;
 max-width:460px;
@@ -702,6 +703,23 @@ text-align: center !important;
 .thanks-active{
     display: block !important;
 }
+.scale-in-center {
+	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes scale-in-center {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
 .thanks-container h2,p{
     margin: 20px 0px 20px;
 }

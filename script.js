@@ -40,7 +40,7 @@ const stepTwo = (e) => {
    finishContainer.classList.remove('finish-active');
    addsContainer.classList.remove('adds-active');
    thanksContainer.classList.remove('thanks-active');
-    step = true;
+    
 };
 
 step2.addEventListener('click', stepTwo);
@@ -54,15 +54,7 @@ const stepThree = (e) => {
 };
 step3.addEventListener('click', stepThree);
 
-const stepFour = (e) => {
-    finishContainer.classList.add('finish-active');
-    addsContainer.classList.remove('adds-active');
-    planContainer.classList.remove('plan-active');
-    formContainer.classList.add('form-active');
-    thanksContainer.classList.remove('thanks-active');
-    
-};
-step4.addEventListener('click', stepFour);
+
 
 const stepOne = (e) => {
     finishContainer.classList.remove('finish-active');
@@ -329,6 +321,7 @@ let adds2Amount = document.querySelector('.plan-receipt .adds2Amount');
 let adds3Name = document.querySelector('.plan-receipt .adds3Name');
 let adds3Amount = document.querySelector('.plan-receipt .adds3Amount');
 
+
 allMonthYear.forEach(months => {
     function monthClick() {
         let content = months.querySelector('.plan h3').textContent;
@@ -338,6 +331,8 @@ allMonthYear.forEach(months => {
     months.addEventListener('click', monthClick);
 });
 
+
+// only God that rescued me from with this function after 3 days 
 function extractNumericValue(value) {
     // Extract numeric part from the string using a regular expression
     let match = value.match(/\d+/);
@@ -374,49 +369,13 @@ pickAdds.forEach(pickAdd => {
             document.querySelector(`.plan-receipt .adds${i + 1}Name `).innerHTML = addsNameValue;
             document.querySelector(`.plan-receipt .adds${i + 1}Amount`).innerHTML = addsAmountValue;
 
-            // let addsAmountString = JSON.stringify(document.querySelector(`.plan-receipt .adds${i + 1}Amount`).innerHTML);
-            // console.log(addsAmountString) ;
-            // let regex = /(\d+)/;
-           
-            // let match = addsAmountString.match(regex);
-
-            
-            // if (match){
-            // let match0 = match[1];
-            // let numericValue = parseInt(match0);
-            // let totalNumericValue = 0;
-            // totalNumericValue += numericValue;
-            // totalReceiptAmount.innerHTML = `$${totalNumericValue}/mo` ;
-            // console.log(numericValue);
-            // console.log(match);
-            // console.log(totalNumericValue);
-            // }else {
-            //     console.log("No numeric value found");
-            //   }
-            //   totalReceiptAmount.innerHTML = `$${totalNumericValue}/mo` ;
-              
-            // totalReceiptAmount.innerHTML+= addsAmountValue;
-
         }        
-        
-        
-        
+    
         console.log(desiredAmount); 
                     
             let totalValue = parseInt(desiredAmount);
             console.log(totalValue);
-            // let regex = /(\d+)/;
-            // let match = desiredAmount.match(regex);
-            // console.log(match);
-            // let yearMatch = String(totalReceiptAmount );
-            // let yearMatchString = yearMatch;
 
-            // let monthMatch = $0/mo;
-            // let numberMatch = match[0];
-            // let desiredValue = match ? parseInt(match[1]) : 0; // Handle the case where match is null
-            
-
-            // let totalValue = desiredValue; // Initialize totalValue with desiredValue
             pickAddsData.forEach(item => {
                 let addsAmount = item.pAddsElement;
                 let regex = /(\d+)/;
@@ -432,11 +391,7 @@ pickAdds.forEach(pickAdd => {
             let yearMatch = String(totalReceiptAmount.textContent);
             let regex = /(\d+)/g;
             let yearNumberString = yearMatch.match(regex);
-            // let numberMatch =  yearNumberString[0];
-            // let yearMatch = desiredAmount;
-            // let yearMatchString = yearMatch;
-            // yearMatchString = '$/(\d+)yr' ? totalReceiptAmount.innerHTML = `$${totalValue}/yr`: totalReceiptAmount.innerHTML = `$${totalValue}/mo`;
-
+            
             if (yearMatch.includes("$") && yearMatch.includes("yr") && yearNumberString) {
                 totalReceiptAmount.innerHTML = `$${totalValue}/yr`;
             } else if (yearMatch.includes("$") && yearMatch.includes("mo")) {
@@ -450,6 +405,8 @@ pickAdds.forEach(pickAdd => {
 console.log(pickAddsData);
 
                 // adds container end
+
+
 
                 // finishing container starts
 const finishBackButton = document.querySelector('.close-finish-btn');
@@ -487,11 +444,18 @@ let totalReceiptName = document.querySelector('.total-receipt p');
 let totalReceiptAmount = document.querySelector('.total-receipt h3');
 
 
-// function summaryValue () {
-//     totalReceiptAmount.innerHTML = 
- 
-// }
-//  summaryValue ();// 
+
+let planName1 = document.querySelector('.plan-receipt .each-plan .plan-1 h3');
+let planAmount1 = document.querySelector('.plan-receipt .each-plan h3:last-child');
+const stepFour = (e) => {
+    finishContainer.classList.add('finish-active');
+    addsContainer.classList.remove('adds-active');
+    planContainer.classList.remove('plan-active');
+    formContainer.classList.add('form-active');
+    thanksContainer.classList.add('scale-in-center');
+    thanksContainer.classList.remove('thanks-active');
+};
+step4.addEventListener('click', stepFour);
 
 
                 // finishing container ends
