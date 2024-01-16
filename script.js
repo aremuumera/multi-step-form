@@ -329,7 +329,22 @@ let adds2Amount = document.querySelector('.plan-receipt .adds2Amount');
 let adds3Name = document.querySelector('.plan-receipt .adds3Name');
 let adds3Amount = document.querySelector('.plan-receipt .adds3Amount');
 
+allMonthYear.forEach(months => {
+    function monthClick() {
+        let content = months.querySelector('.plan h3').textContent;
+        desiredAmount = extractNumericValue(content);
+    }
 
+    months.addEventListener('click', monthClick);
+});
+
+function extractNumericValue(value) {
+    // Extract numeric part from the string using a regular expression
+    let match = value.match(/\d+/);
+    
+    // If there is a numeric part, return it; otherwise, return 0
+    return match ? parseInt(match[0]) : 0;
+}
     
 
 pickAdds.forEach(pickAdd => {
@@ -383,22 +398,7 @@ pickAdds.forEach(pickAdd => {
             // totalReceiptAmount.innerHTML+= addsAmountValue;
 
         }        
-        allMonthYear.forEach(months => {
-            function monthClick() {
-                let content = months.querySelector('.plan h3').textContent;
-                desiredAmount = extractNumericValue(content);
-            }
         
-            months.addEventListener('click', monthClick);
-        });
-        
-        function extractNumericValue(value) {
-            // Extract numeric part from the string using a regular expression
-            let match = value.match(/\d+/);
-            
-            // If there is a numeric part, return it; otherwise, return 0
-            return match ? parseInt(match[0]) : 0;
-        }
         
         
         console.log(desiredAmount); 
