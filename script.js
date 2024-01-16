@@ -249,66 +249,50 @@ allMonthYear.forEach(monthPlan  => {
             // monthlyPlanData.push({monthPlanValue: `${h3ElementValue}`});
             console.log(lastOneClicked) ;
 
-        monthly.forEach(month => {
-            month.addEventListener('click', (e) => {
-                if(month === activeMonth) {
-                    document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
-                    document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
-                    return true ;
-                }else{
-                    document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
-                    document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
-                    return false;
-                };
-            });
-        });
+            let planNameValue = lastOneClicked[0].monthPlan;
+            let planAmountValue = lastOneClicked[0].monthPlanValue;
 
-        yearly.forEach(year => {
-            year.addEventListener('click', (e) => {
-                if(year === activeMonth) {
-                    document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
-                    document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
-                    return true ;
-                }else{
-                    document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
-                    document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
-                    return false;
-                };
-            })
-        
-        });
+            console.log(planNameValue);
+            console.log(planAmountValue);
+
+            planName.innerHTML = planNameValue;
+            planAmount.innerHTML = planAmountValue;
+
+
+       
     
     };
     monthPlan.addEventListener('click', monthlyPlaValidation);
+    monthly.forEach(month => {
+        month.addEventListener('click', (e) => {
+            if(month === activeMonth) {
+                document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
+                document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
+                return true ;
+            }else{
+                document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
+                document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
+                return false;
+            };
+        });
+    });
+
+    yearly.forEach(year => {
+        year.addEventListener('click', (e) => {
+            if(year === activeMonth) {
+                document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
+                document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
+                // return true ;
+            }else{
+                document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
+                document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
+                // return false;
+            };
+        })
+    
+    });
    
 });
-// if (switchValidation () && monthlyPlaValidation ()){
-//     document.querySelector('.monthly-adds-cont').style.display = 'none';
-//         document.querySelector('.yearly-adds-cont').style.display = 'block';
-// }else{
-//     document.querySelector('.monthly-adds-cont').style.display = 'block';
-//         document.querySelector('.yearly-adds-cont').style.display = 'none';
-// }
-const updateSummary = () => {
-    const summaryContainer = document.querySelector('.summary-container');
-    const summaryText = document.querySelector('.summary-text');
-
-    // Check if the switch button is checked
-    const isYearly = switchButton.checked;
-
-    // Get the selected plan data based on the active class
-    const selectedPlanData = isYearly ? yearlyPlanData : monthlyPlanData;
-
-    // Customize the summary text based on the selected plan
-    const summary = selectedPlanData.length > 0
-        ? `Selected Plan: ${selectedPlanData[selectedPlanData.length - 1].monthPlan} ${selectedPlanData[selectedPlanData.length - 1].monthPlanValue}`
-        : 'No plan selected';
-
-    // Update the summary container with the new text
-    summaryText.textContent = summary;
-    summaryContainer.style.display = 'block';
-};
-
 
 console.log(monthlyPlanData);
 
@@ -340,41 +324,85 @@ addsNextButton.addEventListener('click', addsNextValidation);
 
 const pickAdds = document.querySelectorAll('.pick');
 const pickAddsData = []; 
+
+let planName = document.querySelector('.plan-receipt .each-plan .plan-1 h3');
+let planAmount = document.querySelector('.plan-receipt .each-plan h3:last-child');
+let adds1Name = document.querySelector('.plan-receipt .adds1Name');
+let adds1Amount = document.querySelector('.plan-receipt .adds1Amount');
+let adds2Name = document.querySelector('.plan-receipt .adds2Name');
+let adds2Amount = document.querySelector('.plan-receipt .adds2Amount');
+let adds3Name = document.querySelector('.plan-receipt .adds3Name');
+let adds3Amount = document.querySelector('.plan-receipt .adds3Amount');
+let totalReceiptName = document.querySelector('.total-receipt p');
+let totalReceiptAmount = document.querySelector('.total-receipt h3');
+
+
 pickAdds.forEach(pickAdd => {
     let input =  pickAdd.querySelector('.pick input[type="checkbox"]');
     const pickAddsValidation = () => {
         let h2AddsElementValue = pickAdd.querySelector('.pick-cont h2').textContent;
-        let pAddsElementValue = pickAdd.querySelector('.pick p:last-child').textContent;
+        let pAddsElementValue = pickAdd.querySelector('.pick .adds-pick-amount').textContent;
 
         if (!pickAdd.classList.contains('adds-style-active') && !input.classList.contains('pick input:checked')){
             pickAdd.classList.add('adds-style-active');
             pickAdd.style.borderColor = 'hsl(213, 96%, 18%)';
-            input.checked = true;
-            pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`})
-            
-        }else{
+            input.checked = true;  
+            pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`});
+        }else {
             pickAdd.classList.remove('adds-style-active');
             pickAdd.style.borderColor = 'hsl(217, 100%, 91%)';
             input.checked = false;
-            // Create a function to check if an item matches the condition
-                let removeAddsDataFromArray  = pickAddsData.findIndex(item => item.h2AddsElement === `${h2AddsElementValue}` && item.pAddsElement === `${pAddsElementValue}`);
-            // Remove one element from that index
-            if (removeAddsDataFromArray  !== -1) {
-                pickAddsData.splice(removeAddsDataFromArray);
+            let removeAddsDataFromArray = pickAddsData.findIndex(item => item.h2AddsElement === `${h2AddsElementValue}` && item.pAddsElement === `${pAddsElementValue}`); 
+            if (removeAddsDataFromArray !== -1) {
+                pickAddsData.splice(removeAddsDataFromArray, 1);  
+                console.log(removeAddsDataFromArray);   
             }
-            
         }
-        // pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`});
-        // let singleAddValue = pickAddsData.slice()
+        for (let i = 0; i < 3; i++) {
+            let addsNameValue = pickAddsData[i] ? pickAddsData[i].h2AddsElement : '';
+            let addsAmountValue = pickAddsData[i] ? pickAddsData[i].pAddsElement : '';
+            document.querySelector(`.plan-receipt .adds${i + 1}Name `).innerHTML = addsNameValue;
+            document.querySelector(`.plan-receipt .adds${i + 1}Amount`).innerHTML = addsAmountValue;
+        } 
+        // if(pickAdd.classList.contains('adds-style-active') && input.checked === true) {
+        //     pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`});
+   
+        // }else {
+        //     let removeAddsDataFromArray = pickAddsData.findIndex(item => item.h2AddsElement === `${h2AddsElementValue}` && item.pAddsElement === `${pAddsElementValue}`);
+               
+        //     if (removeAddsDataFromArray !== -1) {
+        //         pickAddsData.splice(removeAddsDataFromArray, 1);  
+        //         console.log(removeAddsDataFromArray);   
+        //     }
+        // }           
+        console.log(pickAddsData);
     };
-    console.log(pickAddsData);
     pickAdd.addEventListener('click', pickAddsValidation);
 });
-
 console.log(pickAddsData);
 
                 // adds container end
 
+
+                // let adds1NameValue = pickAddsData[0].h2AddsElement;
+                // let adds1AmountValue = pickAddsData[0].pAddsElement;
+                // let adds2NameValue = pickAddsData[1].h2AddsElement;
+                // let adds2AmountValue = pickAddsData[1].pAddsElement;
+                // let adds3NameValue = pickAddsData[2].h2AddsElement;
+                // let adds3AmountValue = pickAddsData [2].pAddsElement;
+                //     adds1Name.innerHTML === adds1NameValue; 
+                //     adds1Amount.innerHTML === adds1AmountValue; 
+                //     adds2Name.innerHTML === adds2NameValue;
+                //     adds2Amount.innerHTML === adds2AmountValue;
+                //     adds3Name.innerHTML === adds3NameValue;
+                //     adds3Amount.innerHTML === adds3AmountValue;
+
+                // adds1Name.innerHTML = '';
+                // adds1Amount.innerHTML = '';
+                // adds2Name.innerHTML = '';
+                // adds2Amount.innerHTML ='';
+                // adds3Name.innerHTML = '';
+                // adds3Amount.innerHTML = '';
 
                 // finishing container starts
 const finishBackButton = document.querySelector('.close-finish-btn');
@@ -408,6 +436,28 @@ change.addEventListener('click', () => {
 
 
 
+
+
+// function summaryValue (){
+    // let planNameValue = monthlyPlanData[0]
+    // let planAmountValue = monthlyPlanData[0]
+    // console.log(planNameValue);
+    // console.log(planAmountValue);
+    // planName.innerHTML = planNameValue.monthPlan;
+    // planAmount.innerHTML = planAmountValue.monthPlanValue;
+
+
+    // adds1NameValue = removeAddsDataFromArray[0].h2AddsElement;
+    // adds1AmountValue = removeAddsDataFromArray[0].pAddsElement;
+
+    // adds2NameValue = removeAddsDataFromArray[1].h2AddsElement;
+    // adds2AmountValue = removeAddsDataFromArray[1].pAddsElement;
+
+    // adds3NameValue = removeAddsDataFromArray[2].h2AddsElement;
+    // adds3AmountValue = removeAddsDataFromArray[2].pAddsElement;
+ 
+// }
+//  summaryValue ();
 
 
                 // finishing container ends
