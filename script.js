@@ -34,17 +34,6 @@ stepLinks.forEach((stepLink, index) => {
     });
 });
 
-// stepLinks.forEach(stepLink => {
-//     stepLink.addEventListener('click', (e) => {
-//             stepLink.classList.add('step-active');
-//             stepActive.classList.remove('step-active');
-//             stepActive = stepLink;          
-//     });
-//     });
-    
-let step = false;
-
-
 const stepTwo = (e) => {
     planContainer.classList.add('plan-active');
    formContainer.classList.add('form-active');
@@ -258,9 +247,6 @@ allMonthYear.forEach(monthPlan  => {
             planName.innerHTML = planNameValue;
             planAmount.innerHTML = planAmountValue;
 
-
-       
-    
     };
     monthPlan.addEventListener('click', monthlyPlaValidation);
     monthly.forEach(month => {
@@ -268,10 +254,14 @@ allMonthYear.forEach(monthPlan  => {
             if(month === activeMonth) {
                 document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
                 document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
+                totalReceiptName.innerHTML = 'Total (per month)'
+                totalReceiptAmount.innerHTML = '$0/mo'
                 return true ;
             }else{
                 document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
                 document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
+                totalReceiptName.innerHTML = 'Total (per year)';
+                totalReceiptAmount.innerHTML = '$0/yr'
                 return false;
             };
         });
@@ -282,13 +272,17 @@ allMonthYear.forEach(monthPlan  => {
             if(year === activeMonth) {
                 document.querySelector('.monthly-adds-cont').classList.add('yearly-adds-active');
                 document.querySelector('.yearly-adds-cont').classList.add('monthly-adds-active');
-                // return true ;
+                totalReceiptName.innerHTML = 'Total (per year)';
+                totalReceiptAmount.innerHTML = '$0/yr'
+                return true ;
             }else{
                 document.querySelector('.monthly-adds-cont').classList.remove('yearly-adds-active');
                 document.querySelector('.yearly-adds-cont').classList.remove('monthly-adds-active');
-                // return false;
+                totalReceiptName.innerHTML = 'Total (per month)';
+                totalReceiptAmount.innerHTML = '$0/mo'
+                return false;
             };
-        })
+        });
     
     });
    
@@ -324,6 +318,7 @@ addsNextButton.addEventListener('click', addsNextValidation);
 
 const pickAdds = document.querySelectorAll('.pick');
 const pickAddsData = []; 
+let desiredAmount ;
 
 let planName = document.querySelector('.plan-receipt .each-plan .plan-1 h3');
 let planAmount = document.querySelector('.plan-receipt .each-plan h3:last-child');
@@ -333,9 +328,9 @@ let adds2Name = document.querySelector('.plan-receipt .adds2Name');
 let adds2Amount = document.querySelector('.plan-receipt .adds2Amount');
 let adds3Name = document.querySelector('.plan-receipt .adds3Name');
 let adds3Amount = document.querySelector('.plan-receipt .adds3Amount');
-let totalReceiptName = document.querySelector('.total-receipt p');
-let totalReceiptAmount = document.querySelector('.total-receipt h3');
 
+
+    
 
 pickAdds.forEach(pickAdd => {
     let input =  pickAdd.querySelector('.pick input[type="checkbox"]');
@@ -363,46 +358,98 @@ pickAdds.forEach(pickAdd => {
             let addsAmountValue = pickAddsData[i] ? pickAddsData[i].pAddsElement : '';
             document.querySelector(`.plan-receipt .adds${i + 1}Name `).innerHTML = addsNameValue;
             document.querySelector(`.plan-receipt .adds${i + 1}Amount`).innerHTML = addsAmountValue;
-        } 
-        // if(pickAdd.classList.contains('adds-style-active') && input.checked === true) {
-        //     pickAddsData.push({h2AddsElement: `${h2AddsElementValue}`, pAddsElement: `${pAddsElementValue}`});
-   
-        // }else {
-        //     let removeAddsDataFromArray = pickAddsData.findIndex(item => item.h2AddsElement === `${h2AddsElementValue}` && item.pAddsElement === `${pAddsElementValue}`);
-               
-        //     if (removeAddsDataFromArray !== -1) {
-        //         pickAddsData.splice(removeAddsDataFromArray, 1);  
-        //         console.log(removeAddsDataFromArray);   
-        //     }
-        // }           
-        console.log(pickAddsData);
+
+            // let addsAmountString = JSON.stringify(document.querySelector(`.plan-receipt .adds${i + 1}Amount`).innerHTML);
+            // console.log(addsAmountString) ;
+            // let regex = /(\d+)/;
+           
+            // let match = addsAmountString.match(regex);
+
+            
+            // if (match){
+            // let match0 = match[1];
+            // let numericValue = parseInt(match0);
+            // let totalNumericValue = 0;
+            // totalNumericValue += numericValue;
+            // totalReceiptAmount.innerHTML = `$${totalNumericValue}/mo` ;
+            // console.log(numericValue);
+            // console.log(match);
+            // console.log(totalNumericValue);
+            // }else {
+            //     console.log("No numeric value found");
+            //   }
+            //   totalReceiptAmount.innerHTML = `$${totalNumericValue}/mo` ;
+              
+            // totalReceiptAmount.innerHTML+= addsAmountValue;
+
+        }        
+        allMonthYear.forEach(months => {
+            function monthClick() {
+                let content = months.querySelector('.plan h3').textContent;
+                desiredAmount = extractNumericValue(content);
+            }
+        
+            months.addEventListener('click', monthClick);
+        });
+        
+        function extractNumericValue(value) {
+            // Extract numeric part from the string using a regular expression
+            let match = value.match(/\d+/);
+            
+            // If there is a numeric part, return it; otherwise, return 0
+            return match ? parseInt(match[0]) : 0;
+        }
+        
+        
+        console.log(desiredAmount); 
+                    
+            let totalValue = parseInt(desiredAmount);
+            console.log(totalValue);
+            // let regex = /(\d+)/;
+            // let match = desiredAmount.match(regex);
+            // console.log(match);
+            // let yearMatch = String(totalReceiptAmount );
+            // let yearMatchString = yearMatch;
+
+            // let monthMatch = $0/mo;
+            // let numberMatch = match[0];
+            // let desiredValue = match ? parseInt(match[1]) : 0; // Handle the case where match is null
+            
+
+            // let totalValue = desiredValue; // Initialize totalValue with desiredValue
+            pickAddsData.forEach(item => {
+                let addsAmount = item.pAddsElement;
+                let regex = /(\d+)/;
+                let match = addsAmount.match(regex);
+                    console.log(match);
+                if (match) {
+                    let numericValue = parseInt(match[1]);
+                    totalValue += numericValue
+                }
+            
+            });
+
+            let yearMatch = String(totalReceiptAmount.textContent);
+            let regex = /(\d+)/g;
+            let yearNumberString = yearMatch.match(regex);
+            // let numberMatch =  yearNumberString[0];
+            // let yearMatch = desiredAmount;
+            // let yearMatchString = yearMatch;
+            // yearMatchString = '$/(\d+)yr' ? totalReceiptAmount.innerHTML = `$${totalValue}/yr`: totalReceiptAmount.innerHTML = `$${totalValue}/mo`;
+
+            if (yearMatch.includes("$") && yearMatch.includes("yr") && yearNumberString) {
+                totalReceiptAmount.innerHTML = `$${totalValue}/yr`;
+            } else if (yearMatch.includes("$") && yearMatch.includes("mo")) {
+                totalReceiptAmount.innerHTML = `$${totalValue}/mo`;
+            }
+
+            console.log(pickAddsData);
     };
     pickAdd.addEventListener('click', pickAddsValidation);
 });
 console.log(pickAddsData);
 
                 // adds container end
-
-
-                // let adds1NameValue = pickAddsData[0].h2AddsElement;
-                // let adds1AmountValue = pickAddsData[0].pAddsElement;
-                // let adds2NameValue = pickAddsData[1].h2AddsElement;
-                // let adds2AmountValue = pickAddsData[1].pAddsElement;
-                // let adds3NameValue = pickAddsData[2].h2AddsElement;
-                // let adds3AmountValue = pickAddsData [2].pAddsElement;
-                //     adds1Name.innerHTML === adds1NameValue; 
-                //     adds1Amount.innerHTML === adds1AmountValue; 
-                //     adds2Name.innerHTML === adds2NameValue;
-                //     adds2Amount.innerHTML === adds2AmountValue;
-                //     adds3Name.innerHTML === adds3NameValue;
-                //     adds3Amount.innerHTML === adds3AmountValue;
-
-                // adds1Name.innerHTML = '';
-                // adds1Amount.innerHTML = '';
-                // adds2Name.innerHTML = '';
-                // adds2Amount.innerHTML ='';
-                // adds3Name.innerHTML = '';
-                // adds3Amount.innerHTML = '';
 
                 // finishing container starts
 const finishBackButton = document.querySelector('.close-finish-btn');
@@ -436,28 +483,15 @@ change.addEventListener('click', () => {
 
 
 
+let totalReceiptName = document.querySelector('.total-receipt p');
+let totalReceiptAmount = document.querySelector('.total-receipt h3');
 
 
-// function summaryValue (){
-    // let planNameValue = monthlyPlanData[0]
-    // let planAmountValue = monthlyPlanData[0]
-    // console.log(planNameValue);
-    // console.log(planAmountValue);
-    // planName.innerHTML = planNameValue.monthPlan;
-    // planAmount.innerHTML = planAmountValue.monthPlanValue;
-
-
-    // adds1NameValue = removeAddsDataFromArray[0].h2AddsElement;
-    // adds1AmountValue = removeAddsDataFromArray[0].pAddsElement;
-
-    // adds2NameValue = removeAddsDataFromArray[1].h2AddsElement;
-    // adds2AmountValue = removeAddsDataFromArray[1].pAddsElement;
-
-    // adds3NameValue = removeAddsDataFromArray[2].h2AddsElement;
-    // adds3AmountValue = removeAddsDataFromArray[2].pAddsElement;
+// function summaryValue () {
+//     totalReceiptAmount.innerHTML = 
  
 // }
-//  summaryValue ();
+//  summaryValue ();// 
 
 
                 // finishing container ends
