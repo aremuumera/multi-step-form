@@ -182,14 +182,14 @@ const switchValidation = (e) =>{
         // Show yearly plan
         yearlyPlan.style.display = 'flex';
         monthlyPlan.style.display = 'none';
-        switchYear.style.color == 'hsl(213, 96%, 18%)';
+        switchYear.style.color = 'hsl(213, 96%, 18%)';
         switchMonth.style.color = 'hsl(229, 24%, 79%)';
         
     } else {
         // Show monthly plan
         yearlyPlan.style.display = 'none';
         monthlyPlan.style.display = 'flex';
-        switchYear.style.color == ' hsl(229, 24%, 79%)';
+        switchYear.style.color = ' hsl(229, 24%, 79%)';
         switchMonth.style.color = 'hsl(213, 96%, 18%)';
     }
 }
