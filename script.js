@@ -92,7 +92,6 @@ const textValidation = (e) => {
     };
 }
 textInput.addEventListener('input', textValidation);
-
         // text validation ends
 
 
@@ -112,12 +111,10 @@ const emailValidation = (e) =>{
     }
 }
 emailInput.addEventListener('input', emailValidation);
-
         // email validation ends
 
 
 // phone Number validation starts 
-
 const numberValidation = (e) =>{
     let regex = /^\+(?:\d{1,4}[-. ]?)?\d{7,15}$/;
     let numberValue  = numberInput.value;
@@ -134,7 +131,6 @@ const numberValidation = (e) =>{
     }
 }
 numberInput.addEventListener('input', numberValidation);
-
     // phone Number validation ends
 
 
@@ -156,7 +152,7 @@ const formSubmission = (e) =>{
     }
 }
 submitFormButton.addEventListener('click', formSubmission);
-                             // formSubmission button ends
+                // formSubmission button ends
 
 
                 // plan container starts
@@ -403,7 +399,6 @@ pickAdds.forEach(pickAdd => {
     pickAdd.addEventListener('click', pickAddsValidation);
 });
 console.log(pickAddsData);
-
                 // adds container end
 
 
@@ -431,7 +426,6 @@ const finishNextValidation = (e) =>{
     // const newStep = currentStep + 1;
     //     updateActiveStep(newStep);
 }
-
 finishNextButton.addEventListener('click', finishNextValidation);
 const change = document.querySelector('.change');
 change.addEventListener('click', () => {
@@ -456,7 +450,5 @@ const stepFour = (e) => {
     thanksContainer.classList.remove('thanks-active');
 };
 step4.addEventListener('click', stepFour);
-
-
                 // finishing container ends
 
