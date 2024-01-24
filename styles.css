@@ -134,7 +134,7 @@
     margin-top:78px ;
     /* max-height: 315px; */
     height: 100%;
-    display: block !important;
+    display: block;
 }
 .form-active{
     display: none !important;
@@ -222,7 +222,7 @@
     margin-top:78px ;
     max-height: 535px;
     height: 100%;
-    display: none !important;
+    display: none;
 }
 .plan-active{
     display:block !important;
@@ -803,10 +803,8 @@ text-align: center !important;
         position: relative;
         margin-top:78px ;
         margin:0px auto 20px!important;
-        /* padding:; */
         height: 160% !important;
         padding: 40px 20px 30px!important;
-        /* z-index: 10000000!important; */
         top: 7% !important;
         border-radius:20px ;
     }
@@ -814,7 +812,6 @@ text-align: center !important;
         display: flex;
         justify-content: right !important;
         width: 410px;
-        /* display: none !important; */
         position: fixed !important;
         margin-left: -12px !important;
         margin-top: 12%;
@@ -908,7 +905,6 @@ text-align: center !important;
         margin-top:78px ;
         margin:0px auto 20px!important;
         height: 160% !important;
-        display: block !important;
         padding: 40px 20px 30px!important;
         top: -1% !important;
         border-radius:20px ;
@@ -944,7 +940,6 @@ text-align: center !important;
     .btn-plan{
         width: 400px !important;
         margin-top: 15%;
-        
     }
     .finish-container{
         background-color:hsl(0, 0%, 100%) !important;
@@ -953,13 +948,16 @@ text-align: center !important;
         position: relative;
         padding: 40px 20px 30px!important;
         margin:0px auto 20px!important;
-        height: 140% !important;
+        height: 160% !important;
         top: 7% !important;
         border-radius:20px ;
     }
     .btn-finish{
         width: 400px;
         margin-top: 25%;
+    }
+    .plan-receipt{
+        margin-bottom: 5px!important;
     }
     .thanks-container{
         background-color:hsl(0, 0%, 100%) !important;
@@ -997,7 +995,6 @@ text-align: center !important;
         padding: 40px auto 30px!important;
         top: -1% !important;;
         border-radius:20px ;
-
     }
     .form-btn{
         display: flex;
@@ -1005,7 +1002,6 @@ text-align: center !important;
         width: 290px;
         position: fixed !important;
         margin-top: 18%;
-        
     }
     .form-1 input{
         width: 290px!important;
@@ -1093,9 +1089,12 @@ text-align: center !important;
     position: relative;
     padding: 40px 20px 30px!important;
     margin:0px auto 20px!important;
-    height: 140% !important;
+    height: 160% !important;
     top: 7% !important;
     border-radius:20px ;
+}
+.plan-receipt{
+    margin-bottom: 10px!important;
 }
 .btn-finish{
     width: 310px;
@@ -1144,10 +1143,8 @@ text-align: center !important;
         position: relative;
         margin-top:78px ;
         margin:0px auto 20px!important;
-        /* padding:; */
         height: 160% !important;
         padding: 40px auto 30px!important;
-        /* z-index: 10000000!important; */
         top: -1% !important;;
         border-radius:20px ;
     }
