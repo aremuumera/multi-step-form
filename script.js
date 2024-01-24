@@ -115,22 +115,22 @@ emailInput.addEventListener('input', emailValidation);
 
 
 // phone Number validation starts 
-const numberValidation = (e) =>{
-    let regex = /^\+(?:\d{1,4}[-. ]?)?\d{7,15}$/;
-    let numberValue  = numberInput.value;
-   
-    if(!regex.test(numberValue)){
-        numberInput.style.borderColor = 'red';
-        requiredInput.style.display = 'block';
-        return false;
-        
-    }else{
-        numberInput.style.borderColor = 'hsl(213, 96%, 18%)';
-        requiredInput.style.display = 'none';
-        return true;
+const numberValidation = (e) => {
+    let regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    let numberValue = numberInput.value;  // Use e.target.value to get the input value
+  
+    if (!regex.test(numberValue)) {
+      numberInput.style.borderColor = 'red';
+      requiredInput.style.display = 'block';
+      return false;
+    } else {
+      numberInput.style.borderColor = 'hsl(213, 96%, 18%)';
+      requiredInput.style.display = 'none';
+      return true;
     }
-}
-numberInput.addEventListener('input', numberValidation);
+  }
+  
+  numberInput.addEventListener('input', numberValidation);
     // phone Number validation ends
 
 
